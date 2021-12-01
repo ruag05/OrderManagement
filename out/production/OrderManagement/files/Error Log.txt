@@ -1,0 +1,5 @@
+
+Please correct quantities: [Bread, 3, 1235 5678 9101 1121]
+Please correct quantities: [Apples, 10, 3423 6785 1234 1234]
+Please correct quantities: [Oil, 1, 1236 5678 9101 1121]
+Please correct quantities: [Apples, 10, 3423 6785 1234 1234]
