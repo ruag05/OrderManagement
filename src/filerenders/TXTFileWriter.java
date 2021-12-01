@@ -11,7 +11,7 @@ public class TXTFileWriter implements FileRender{
     }
     @Override
     public void writeToFile(String message) throws IOException {
-        FileWriter txtWriter = new FileWriter("src/files/" + fileName + ".txt", true);
+        FileWriter txtWriter = new FileWriter("files/" + fileName + ".txt", true);
         txtWriter.append("\n").append(message);
         txtWriter.flush();
         txtWriter.close();
