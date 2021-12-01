@@ -11,7 +11,7 @@ public class CSVFileWriter implements FileRender{
     }
     @Override
     public void writeToFile(String message) throws IOException {
-        FileWriter csvWriter = new FileWriter("src/files/" + fileName + ".csv", true);
+        FileWriter csvWriter = new FileWriter("files/" + fileName + ".csv", true);
         csvWriter.append("\n").append(message);
         csvWriter.flush();
         csvWriter.close();
