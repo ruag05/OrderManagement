@@ -21,3 +21,5 @@ Currently, the order/items are inputted in *.csv format. However, in future the 
 - Also, since the database instance is ***needed globally*** across the application (like for quantity validation, category-wise validation, adding item to cart, and more) it makes sense to use the Singleton pattern to the database object from anywhere in the application.
 
 ## Class Diagram
+
+## Screenshots
