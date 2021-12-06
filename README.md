@@ -35,3 +35,7 @@ Since, the database is a ***shared resource***, it will be effective to control 
 ## Class Diagram
 
 ## Screenshots
+### Output
+### Terminals
+
+
