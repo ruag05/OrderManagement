@@ -33,8 +33,9 @@ public class CardHolder {
             //iterate through the dataset and store as inventory
             while((csvRow = reader.readLine()) != null) {
 
-                String[] rowData = csvRow.split(",");
-                Card card = new Card(Arrays.toString(rowData));
+                //String[] rowData = csvRow.split(",");
+                String rowData = csvRow;
+                Card card = new Card(rowData);
                 cards.add(card);
             }
         } catch (Exception e) {

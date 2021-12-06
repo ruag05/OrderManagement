@@ -35,7 +35,6 @@ public class OrderManager {
         FileParserContext fileParserContxt;
 
         try {
-
             //parse input file in CSV
             fileParserContxt = new FileParserContext(new CSVFileParser());
             List<String[]> items = fileParserContxt.implementStrategy(inputFilePath);
@@ -65,7 +64,7 @@ public class OrderManager {
                                 //get & store card number
                                 String cardNumber = item[2];
 
-                                if(!cardHolder.cards.contains(cardNumber))
+                                if(cardHolder.cards.stream().noneMatch(c -> c.cardNumber.equals(cardNumber)))
                                     cardHolder.cards.add(new Card(cardNumber));
 
                                 //reduce ordered item quantity from the database
@@ -104,6 +103,12 @@ public class OrderManager {
             }
             else{
                 System.out.println("Input/Order file is empty. No item to process");
+            }
+
+            //print cards
+            System.out.println("Following are the cards present in the application");
+            for (Card card : cardHolder.cards){
+                System.out.println(card.cardNumber);
             }
         }
         catch (Exception e) {
