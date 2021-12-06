@@ -1,23 +1,23 @@
 # OrderManagement
 ## Steps to Run the application
+
+### Using IDE
 1. Clone the repo: git clone https://github.com/ruag05/OrderManagement.git
-2. Navigate to source folder: cd "OrderManagement/src"
-3. Compile the java project: javac -d . App.java
-4. Run the java application: java App
-5. Append "src/files/" before the file names:
-   - Pass the dataset files. Like "src/files/Dataset - Sheet1.csv"
-   - Pass the cards files. Like "src/files/Cards - Sheet1.csv"
+2. Open the project in an IDE like IntelliJ and run the 'App.java' file
+3. Append "src/files/" before the file names:
+   - Pass the dataset file. Like "src/files/Dataset - Sheet1.csv"
+   - Pass the cards file. Like "src/files/Cards - Sheet1.csv"
    - Pass input files. Like "src/files/Input1 - Sheet1.csv"
      - To pass another input file, choose option 1 by pressing '1' key
      - Keep choosing option '1' for passing input files
-6. Exit the application by choosing option 2 by pressing '2' key
+4. Exit the application by choosing option 2 by pressing '2' key
 
 ## Design Patterns
 #### Chain of Responsibility:
 - Used the pattern to identify the category of the item<br>
 As any Item in the Order/input item list, can belong to any of the categories "Essential", "Luxury", "Misc". So, the ***item can be passed to each category handler sequentially*** to identify whether the item belongs to that category or not. If the item does not belong to that category, it would be passed to next category handler and so on.
 - Used the pattern ***to prevent bloating*** of the code<br>
-Without this pattern, as the the number of item categories grow in future, changing one check for a category can sometimes affect the others. Such a system will become more and more hard to understand and to debug, as the item categories grow.
+Without this pattern, as the number of item categories grow in future, changing one check for a category can sometimes affect the others. Such a system will become more and more hard to understand and to debug, as the item categories grow.
 
 #### Strategy:
 
