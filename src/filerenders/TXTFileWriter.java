@@ -1,5 +1,6 @@
 package filerenders;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -11,7 +12,9 @@ public class TXTFileWriter implements FileRender{
     }
     @Override
     public void writeToFile(String message) throws IOException {
-        FileWriter txtWriter = new FileWriter("files/" + fileName + ".txt", true);
+        String filePath = "src/files/output/" + fileName + ".txt";
+//        FileWriter txtWriter = new FileWriter(filePath, true);
+        FileWriter txtWriter = new FileWriter(new File(filePath), true);
         txtWriter.append("\n").append(message);
         txtWriter.flush();
         txtWriter.close();

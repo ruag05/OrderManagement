@@ -15,10 +15,12 @@ public class OrderManager {
     private Database database = null;
     private Map<String, Integer> categoryCaps = null;
     private double cartPrice = 0d;
+    private int orderNumber = 0;
+    private CardHolder cardHolder = null;
 
-    public void setDatabase(Database db) {
-        this.database = db;
-    }
+    public void setDatabase(Database db) { this.database = db;}
+
+    public void setCards(CardHolder cdHdr){ this.cardHolder = cdHdr;}
 
     public void setCategoryCaps(int essQuantityCap, int luxQuantityCap, int miscQuantityCap){
         categoryCaps = new HashMap<>();
@@ -28,6 +30,8 @@ public class OrderManager {
     }
 
     public void processOrder(String inputFilePath){
+        orderNumber++;
+        cartPrice = 0;
         FileParserContext fileParserContxt;
 
         try {
@@ -35,63 +39,76 @@ public class OrderManager {
             //parse input file in CSV
             fileParserContxt = new FileParserContext(new CSVFileParser());
             List<String[]> items = fileParserContxt.implementStrategy(inputFilePath);
+            if(!items.isEmpty()){
 
-            String itemCategory = "";
-            Map<String, Integer> reqQuantityCategoryWise = new HashMap<>();
-            List<String> paymentCards = new ArrayList<>();
-            boolean isItemPurchased = false;
-            FileRender fileWriter;
-            Validation validator = new Validation();
+                String itemCategory = "";
+                Map<String, Integer> reqQuantityCategoryWise = new HashMap<>();
+                boolean isItemPurchased = false;
+                FileRender fileWriter;
+                Validation validator = new Validation();
 
-            for(String[] item : items){
+                for(String[] item : items){
 
-                //get the category for each item
-                itemCategory = getItemCategory(item);
-                if(itemCategory != null){
+                    //get the category for each item
+                    itemCategory = getItemCategory(item);
+                    if(itemCategory != null){
 
-                    //check if requested item quantity is available in database
-                    if(validator.isReqQuantityValid(database, item, itemCategory)){
+                        //check if requested item quantity is available in database
+                        if(validator.isReqQuantityValid(database, item, itemCategory)){
 
-                        //check if requested quantity exceeds quantity cap for the category
-                        if(validator.isCategoryCapSatisfied(reqQuantityCategoryWise, categoryCaps, item, itemCategory)){
+                            //check if requested quantity exceeds quantity cap for the category
+                            if(validator.isCategoryCapSatisfied(reqQuantityCategoryWise, categoryCaps, item, itemCategory)){
 
-                            //valid request -> add item to cart
-                            addItemToCart(item, itemCategory);
+                                //valid request -> add item to cart
+                                addItemToCart(item, itemCategory);
 
-                            //get & store card number
-                            String cardNumber = item[2];
-                            if(!paymentCards.contains(cardNumber))
-                                paymentCards.add(cardNumber);
+                                //get & store card number
+                                String cardNumber = item[2];
 
-                            //reduce ordered item quantity from the database
-                            database.updateItemQuantity(item, itemCategory);
+                                if(!cardHolder.cards.contains(cardNumber))
+                                    cardHolder.cards.add(new Card(cardNumber));
 
-                            isItemPurchased = true;
-                        } else{
+                                //reduce ordered item quantity from the database
+                                database.updateItemQuantity(item, itemCategory);
+
+                                isItemPurchased = true;
+                            }
+                            else{
+
+                                //incorrect request -> output to TXT file
+                                fileWriter = new TXTFileWriter("ErrorLog");
+                                fileWriter.writeToFile("The cap for category: " + itemCategory + " is exceeded. " +
+                                        "Please correct quantity of the item: " + Arrays.toString(item));
+                            }
+                        }
+                        else{
 
                             //incorrect request -> output to TXT file
-                            fileWriter = new TXTFileWriter("Error Log");
-                            fileWriter.writeToFile("Please correct quantities: " + Arrays.toString(item));
+                            fileWriter = new TXTFileWriter("ErrorLog");
+                            fileWriter.writeToFile("Sorry, database does not have enough quantity for item: " + item[0] +
+                                    ". Please correct quantity of the item: " + Arrays.toString(item));
                         }
-                    } else{
-                        //incorrect request -> output to TXT file
-                        fileWriter = new TXTFileWriter("Error Log");
-                        fileWriter.writeToFile("Please correct quantities: " + Arrays.toString(item));
                     }
-                } else{
+                    else{
 
-                    //item not found in database
-                    System.out.println("Item: '" + item[0] + "' not found in database");
+                        //item not found in database
+                        System.out.println("Item: '" + item[0] + "' not found in database. Please check");
+                    }
+                }
+
+                //print total amount paid only if at least one item was purchased and the total amount paid is > $0
+                if(isItemPurchased){
+                    fileWriter = new CSVFileWriter("Order Summary");
+                    fileWriter.writeToFile("Order: " + orderNumber + ". The total amount paid is: " + cartPrice);
                 }
             }
-
-            //print total amount paid only if at least one item was purchased and the total amount paid is > $0
-            if(isItemPurchased && cartPrice > 0){
-                fileWriter = new CSVFileWriter("Order Summary");
-                fileWriter.writeToFile("Total amount paid is: " + cartPrice);
+            else{
+                System.out.println("Input/Order file is empty. No item to process");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        catch (Exception e) {
+            System.out.println("Input/Order file could not be read. Please check the file path");
+            //e.printStackTrace();
         }
     }
 
@@ -116,13 +133,15 @@ public class OrderManager {
     }
 
     public void addItemToCart(String[] item,  String itemCategory){
-        String itemName = item[0];
-        int itemQuantity = Integer.parseInt(item[1]);
-        for(Map.Entry<String, List<Item>> entry : database.inventory.entrySet()){
-            if(entry.getKey().equals(itemCategory)){
-                Optional<Item> matchedItem = entry.getValue().stream().
-                        filter(i -> i.getName().equals(itemName)).findFirst();
-                matchedItem.ifPresent(value -> cartPrice += value.getPrice() * itemQuantity);
+        if(item.length > 0) {
+            String itemName = item[0];
+            int itemQuantity = Integer.parseInt(item[1]);
+            for (Map.Entry<String, List<Item>> entry : database.inventory.entrySet()) {
+                if (entry.getKey().equals(itemCategory)) {
+                    Optional<Item> matchedItem = entry.getValue().stream().
+                            filter(i -> i.getName().equals(itemName)).findFirst();
+                    matchedItem.ifPresent(value -> cartPrice += value.getPrice() * itemQuantity);
+                }
             }
         }
     }

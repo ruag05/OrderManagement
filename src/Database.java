@@ -10,26 +10,25 @@ public final class Database {
     private static Database instance;
     public Map<String, List<Item>> inventory;
 
-    public static Database getInstance(String datasetPath){
+    public static Database getInstance(String datasetPath) throws IOException {
         if (instance == null) {
             instance = new Database(datasetPath);
         }
         return instance;
     }
 
-    private Database(String datasetPath){
+    private Database(String datasetPath) throws IOException {
         this.inventory = buildInventory(datasetPath);
     }
 
-    private Map<String, List<Item>> buildInventory(String datasetPath){
+    private Map<String, List<Item>> buildInventory(String datasetPath) throws IOException {
         BufferedReader reader = null;
         try {
-            reader= new BufferedReader(new FileReader(datasetPath));
+            reader = new BufferedReader(new FileReader(datasetPath));
             inventory = new HashMap<>();
 
             //ignore csv header and table header lines
             String csvRow = reader.readLine();
-            csvRow = reader.readLine();
 
             //iterate through the dataset and store as inventory
             while((csvRow = reader.readLine()) != null) {
@@ -46,23 +45,21 @@ public final class Database {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Database file could not read. Please check the database file path");
+            //e.printStackTrace();
         }
         finally {
-            try {
-                assert reader != null;
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            assert reader != null;
+            reader.close();
             return inventory;
         }
     }
 
     public void updateItemQuantity(String[] item, String itemCategory){
-        List<Item> temp = inventory.get(itemCategory);
-        Optional<Item> myItem = temp.stream().filter(i ->i.getName().equals(item[0])).findFirst();
-        int oldQuantity = myItem.get().getQuantity();
-        myItem.get().setQuantity(oldQuantity - Integer.parseInt(item[1]));
+        List<Item> itemsList = inventory.get(itemCategory);
+        if(!itemsList.isEmpty()){
+            Optional<Item> myItem = itemsList.stream().filter(i ->i.getName().equals(item[0])).findFirst();
+            myItem.ifPresent(value -> value.setQuantity(value.getQuantity() - Integer.parseInt(item[1])));
+        }
     }
 }

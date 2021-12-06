@@ -21,7 +21,7 @@ public class CSVFileParser implements FileParser {
 
             //ignore csv header and table header lines
             csvRow = reader.readLine();
-            csvRow = reader.readLine();
+           // csvRow = reader.readLine();
 
             //iterate through the csv content
             while((csvRow = reader.readLine()) != null) {
