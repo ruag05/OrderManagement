@@ -5,8 +5,12 @@
 3. Compile the java project: javac -d . App.java
 4. Run the java application: java App
 5. Append "src/files/" before the file names:
-   - Pass the dataset files. Like "src/files/Dataset.csv"
-   - Pass input files (multiple files allowed): Like "src/files/Sample Input File.csv"
+   - Pass the dataset files. Like "src/files/Dataset - Sheet1.csv"
+   - Pass the cards files. Like "src/files/Cards - Sheet1.csv"
+   - Pass input files. Like "src/files/Input1 - Sheet1.csv"
+     - To pass another input file, choose option 1 by pressing '1' key
+     - Keep choosing option '1' for passing input files
+6. Exit the application by choosing option 2 by pressing '2' key
 
 ## Design Patterns
 #### Chain of Responsibility:
