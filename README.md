@@ -34,8 +34,23 @@ Since, the database is a ***shared resource***, it will be effective to control 
 
 ## Class Diagram
 
-## Screenshots
-### Output
-### Terminals
 
+## Screenshots
+
+### Project Folder Structure
+<img src="screenshots/Folder Structure.png" width="75%"/>
+
+## Terminal
+<img src="screenshots/Terminal.png" width="75%"/>
+
+### ErrorLog
+<img src="screenshots/ErrorLog.png" width="75%"/>
+
+### Output/Order Summary
+<img src="screenshots/Order Summary.png" width="75%"/>
+
+## Output Files
+
+###[ErrorLog.txt](https://drive.google.com/file/d/1jy4WvyXin0vRwFv9F4vftcvg31gwLNXc/view?usp=sharing)
+###[OrderSummary.csv](https://drive.google.com/file/d/149zQdPldX7bFfAVYCUJ0oXNioTcYQieN/view?usp=sharing)
 
