@@ -4,7 +4,9 @@
 2. Navigate to source folder: cd "OrderManagement/src"
 3. Compile the java project: javac -d . App.java
 4. Run the java application: java App
-5. Pass the dataset and input files: files/Dataset.csv files/Sample Input File.csv
+5. Append "src/files/" before the file names:
+   - Pass the dataset files. Like "src/files/Dataset.csv"
+   - Pass input files (multiple files allowed): Like "src/files/Sample Input File.csv"
 
 ## Design Patterns
 #### Chain of Responsibility:
