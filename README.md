@@ -24,6 +24,7 @@ As currently, the error is logged in *.txt file and the output is logged in *.cs
 - Implemented the pattern ***to ensure that only a single instance of the Database is available*** across the whole application<br>
 Since, the database is a ***shared resource***, it will be effective to control access to the database instance.
 - Also, since the database instance is ***needed globally*** across the application (like for quantity validation, category-wise validation, adding item to cart, and more) it makes sense to use the Singleton pattern in order to access the database object from anywhere in the application.
+- Similarly, applied the design pattern ***to ensure that only a single instance of Card Collection/Card Holder is available*** throughout the application.
 
 ## Class Diagram
 
