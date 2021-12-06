@@ -40,14 +40,45 @@ Since, the database is a ***shared resource***, it will be effective to control 
 ### Project Folder Structure
 <img src="screenshots/Folder Structure.png" width="75%"/>
 
-## Terminal
-<img src="screenshots/Terminal.png" width="75%"/>
+### Running the input files in single application excution
+#### Terminal
+<img src="screenshots/Merged/Terminal.png" width="75%"/>
 
-### ErrorLog
-<img src="screenshots/ErrorLog.png" width="75%"/>
+#### OrderSummary/Output
+<img src="screenshots/Merged/Order Summary.png" width="75%"/>
 
-### Output/Order Summary
-<img src="screenshots/Order Summary.png" width="75%"/>
+#### ErrorLog
+<img src="screenshots/Merged/ErrorLog.png" width="75%"/>
+
+### Running only the Input1 file
+#### Terminal
+<img src="screenshots/Input1/Terminal.png" width="75%"/>
+
+#### OrderSummary/Output
+<img src="screenshots/Input1/OrderSummary.png" width="75%"/>
+
+#### ErrorLog
+There was no error while parsing the Input1 only
+
+### Running only the Input2 file
+#### Terminal
+<img src="screenshots/Input2/Terminal.png" width="75%"/>
+
+#### OrderSummary/Output
+<img src="screenshots/Input2/OrderSummary.png" width="75%"/>
+
+#### ErrorLog
+<img src="screenshots/Input2/ErrorLog.png" width="75%"/>
+
+### Running only the Input3 file
+#### Terminal
+<img src="screenshots/Input3/Terminal.png" width="75%"/>
+
+#### OrderSummary/Output
+<img src="screenshots/Input3/OrderSummary.png" width="75%"/>
+
+#### ErrorLog
+There was no error while parsing the Input1 only
 
 ## Output Files
 
