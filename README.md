@@ -33,7 +33,7 @@ Since, the database is a ***shared resource***, it will be effective to control 
 - Similarly, applied the design pattern ***to ensure that only a single instance of Card Collection/Card Holder is available*** throughout the application.
 
 ## Class Diagram
-
+<img src="screenshots/ClassDiagram.png" width="75%"/>
 
 ## Screenshots
 
